@@ -21,8 +21,8 @@ class _MyAppState extends State<MyApp> {
   String _scanBarcode = 'Unknown';
 
   bool result = false;
-  // final _site = "https://aritzi.com/api";
-  // final _key = "ws_key=4PD3IN6G9WT6TYE67J54F7SCIF99MFC1"; //live
+  final _site = "https://aritzi.com/api";
+  final _key = "ws_key=4PD3IN6G9WT6TYE67J54F7SCIF99MFC1"; //live
   // final _site = "https://shiffin.gofenice.in/tutpre/api";
   // final _key = "ws_key=QCZIYHRUY39FQZU1MSNSM76QLX1RRIFP	"; //local
   @override

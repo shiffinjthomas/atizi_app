@@ -51,10 +51,10 @@ class _ProductState extends State<Product> {
   TextEditingController supplierrefController = TextEditingController();
   late bool _switchValue = false;
   late bool _exicuted = false;
-  // final _site = "https://aritzi.com/api";
-  // final _key = "ws_key=2UERA8VW94ILC2BU7QBNH3LUZQF2CYKI"; //live
-  final _site = "https://shiffin.gofenice.in/tutpre/api";
-  final _key = "ws_key=4PD3IN6G9WT6TYE67J54F7SCIF99MFC1	"; //local
+  final _site = "https://aritzi.com/api";
+  final _key = "ws_key=2UERA8VW94ILC2BU7QBNH3LUZQF2CYKI"; //live
+  // final _site = "https://shiffin.gofenice.in/tutpre/api";
+  // final _key = "ws_key=4PD3IN6G9WT6TYE67J54F7SCIF99MFC1	"; //local
   String dropdownvalue = '0';
 
   List<Shop> shops = <Shop>[
@@ -473,7 +473,9 @@ class _ProductState extends State<Product> {
                             link_rewrite.add(
                                 '<language id="${snapshot.data['products'][0]['link_rewrite'][i]['id']}">${snapshot.data['products'][0]['link_rewrite'][i]['value']}</language>');
                             description.add(
-                                '<language id="${snapshot.data['products'][0]['description'][i]['id']}">${snapshot.data['products'][0]['description'][i]['value']}</language>');
+                                '<language id="${snapshot.data['products'][0]['description'][i]['id']}"><![CDATA[${snapshot.data['products'][0]['description'][i]['value']} ]]></language>');
+                            description_short.add(
+                                '<language id="${snapshot.data['products'][0]['description_short'][i]['id']}"><![CDATA[${snapshot.data['products'][0]['description_short'][i]['value']} ]]></language>');
                             available_now.add(
                                 '<language id="${snapshot.data['products'][0]['available_now'][i]['id']}">${snapshot.data['products'][0]['available_now'][i]['value']}</language>');
                             available_later.add(
