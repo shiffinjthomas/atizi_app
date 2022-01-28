@@ -229,6 +229,12 @@ class _ProductState extends State<Product> {
                 '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
             var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
             data['stock'] = data2['stock_availables'][0];
+
+            // var response3 = await http.get(Uri.parse(
+            //     '$_site/images/products/${data['products'][0]['id']}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+            // print(response3);
+            // // var data3 = jsonDecode(utf8.decode(response3.bodyBytes));
+            // // data['images'] = data3['stock_availables'][0];
             if (data != null) {
               connectionStatus = true;
             }
@@ -342,6 +348,24 @@ class _ProductState extends State<Product> {
                     child: ListView(
                   padding: const EdgeInsets.all(8),
                   children: <Widget>[
+                    // Row(
+                    //   children: [
+                    //     for (var i = 0; i < 3; i++)
+                    //       SizedBox(
+                    //         child: Image.network(
+                    //             'https://picsum.photos/250?image=9'),
+                    //         width: 100,
+                    //         height: 100,
+                    //       ),
+                    //   ],
+                    // ),
+                    SizedBox(
+                      child: Image.network(
+                        '$_site/images/products/${snapshot.data['products'][0]['id']}/${snapshot.data['products'][0]['id_default_image']}/?$_key',
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
                     for (var i = 0;
                         i < snapshot.data['products'][0]['name'].length;
                         i++)
