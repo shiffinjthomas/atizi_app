@@ -490,6 +490,8 @@ class _ProductState extends State<Product> {
     <id_manufacturer>${snapshot.data['products'][0]['id_manufacturer']}</id_manufacturer>
     <id_supplier>${snapshot.data['products'][0]['id_supplier']}</id_supplier>
     <id_category_default>${snapshot.data['products'][0]['id_category_default']}</id_category_default>
+    <new>${snapshot.data['products'][0]['new']}</new>
+    <cache_default_attribute>${snapshot.data['products'][0]['cache_default_attribute']}</cache_default_attribute>
     <id_tax_rules_group>${snapshot.data['products'][0]['id_tax_rules_group']}</id_tax_rules_group>
     <id_shop_default>${snapshot.data['products'][0]['id_shop_default']}</id_shop_default>
     <reference>${referencenumberController.text.trim()}</reference>
@@ -498,7 +500,17 @@ class _ProductState extends State<Product> {
     <ean13>${referencenumberController.text.trim()}</ean13>
     <isbn>${isbnController.text.trim()}</isbn>
     <price>${priceController.text.trim()}</price>
+    <wholesale_price>${snapshot.data['products'][0]['wholesale_price']}</wholesale_price>
+    <unity>${snapshot.data['products'][0]['unity']}</unity>
+    <unit_price_ratio>${snapshot.data['products'][0]['unit_price_ratio']}</unit_price_ratio>
     <active>$active</active>
+    <show_price>${snapshot.data['products'][0]['show_price']}</show_price>
+    <indexed>${snapshot.data['products'][0]['indexed']}</indexed>
+    <visibility>${snapshot.data['products'][0]['visibility']}</visibility>
+    <advanced_stock_management>${snapshot.data['products'][0]['advanced_stock_management']}</advanced_stock_management>
+    <date_add>${snapshot.data['products'][0]['date_add']}</date_add>
+    <date_upd>${snapshot.data['products'][0]['date_upd']}</date_upd>
+    <pack_stock_type>${snapshot.data['products'][0]['pack_stock_type']}</pack_stock_type>
     <meta_description>$meta_description</meta_description>
     <meta_keywords>$meta_keywords</meta_keywords>
     <meta_title>$meta_title</meta_title>
