@@ -130,11 +130,11 @@ class _ProductState extends State<Product> {
           // print(
           //     '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key');
           var response = await http.get(Uri.parse(
-              '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key&language=$_lang'));
+              '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key'));
           var data = jsonDecode(utf8.decode(response.bodyBytes));
 
           var response2 = await http.get(Uri.parse(
-              '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&language=$_lang'));
+              '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
           var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
           data['stock'] = data2['stock_availables'][0];
           if (data != null) {
@@ -151,14 +151,14 @@ class _ProductState extends State<Product> {
         }
         if (_url.length == 13) {
           var response = await http.get(Uri.parse(
-              '$_site/products?filter[reference]=$_url&display=full&output_format=JSON&$_key&language=$_lang'));
+              '$_site/products?filter[reference]=$_url&display=full&output_format=JSON&$_key'));
           var data = jsonDecode(utf8.decode(response.bodyBytes));
           if (data.isEmpty) {
             var response = await http.get(Uri.parse(
-                '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key&language=$_lang'));
+                '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key'));
             var data = jsonDecode(utf8.decode(response.bodyBytes));
             var response2 = await http.get(Uri.parse(
-                '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&language=$_lang'));
+                '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
             var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
             data['stock'] = data2['stock_availables'][0];
             if (data != null) {
@@ -174,7 +174,7 @@ class _ProductState extends State<Product> {
             return data;
           }
           var response2 = await http.get(Uri.parse(
-              '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&language=$_lang'));
+              '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
           var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
           data['stock'] = data2['stock_availables'][0];
 
