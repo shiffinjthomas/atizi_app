@@ -125,38 +125,15 @@ class _ProductState extends State<Product> {
 
   Future check() async {
     try {
-      if (_url != null && _ref == null) {
-        if (_url.length == 8) {
-          // print(
-          //     '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key');
-          var response = await http.get(Uri.parse(
-              '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key'));
-          var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-          var response2 = await http.get(Uri.parse(
-              '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
-          var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
-          data['stock'] = data2['stock_availables'][0];
-          if (data != null) {
-            connectionStatus = true;
-          }
-
-          if (!_exicuted) {
-            if (data['products'][0]['active'].toString() == '1') {
-              _switchValue = true;
-            }
-          }
-
-          return data;
-        }
-        if (_url.length == 13) {
-          var response = await http.get(Uri.parse(
-              '$_site/products?filter[reference]=$_url&display=full&output_format=JSON&$_key'));
-          var data = jsonDecode(utf8.decode(response.bodyBytes));
-          if (data.isEmpty) {
+      if (_shop_id == 0) {
+        if (_url != null && _ref == null) {
+          if (_url.length == 8) {
+            // print(
+            //     '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key');
             var response = await http.get(Uri.parse(
                 '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key'));
             var data = jsonDecode(utf8.decode(response.bodyBytes));
+
             var response2 = await http.get(Uri.parse(
                 '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
             var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
@@ -173,11 +150,59 @@ class _ProductState extends State<Product> {
 
             return data;
           }
+          if (_url.length == 13) {
+            var response = await http.get(Uri.parse(
+                '$_site/products?filter[reference]=$_url&display=full&output_format=JSON&$_key'));
+            var data = jsonDecode(utf8.decode(response.bodyBytes));
+            if (data.isEmpty) {
+              var response = await http.get(Uri.parse(
+                  '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key'));
+              var data = jsonDecode(utf8.decode(response.bodyBytes));
+              var response2 = await http.get(Uri.parse(
+                  '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
+              var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+              data['stock'] = data2['stock_availables'][0];
+              if (data != null) {
+                connectionStatus = true;
+              }
+
+              if (!_exicuted) {
+                if (data['products'][0]['active'].toString() == '1') {
+                  _switchValue = true;
+                }
+              }
+
+              return data;
+            }
+            var response2 = await http.get(Uri.parse(
+                '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
+            var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+            data['stock'] = data2['stock_availables'][0];
+
+            if (data != null) {
+              connectionStatus = true;
+              //  print("connected $connectionStatus");
+            }
+
+            if (!_exicuted) {
+              if (data['products'][0]['active'].toString() == '1') {
+                _switchValue = true;
+              }
+            }
+
+            return data;
+          }
+        }
+        if (_url == null && _ref != null) {
+          var response = await http.get(Uri.parse(
+              '$_site/products?filter[reference]=$_ref&display=full&output_format=JSON&$_key'));
+          var data = jsonDecode(utf8.decode(response.bodyBytes));
+
           var response2 = await http.get(Uri.parse(
               '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
           var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
           data['stock'] = data2['stock_availables'][0];
-
+          // print(data);
           if (data != null) {
             connectionStatus = true;
             //  print("connected $connectionStatus");
@@ -191,29 +216,97 @@ class _ProductState extends State<Product> {
 
           return data;
         }
-      }
-      if (_url == null && _ref != null) {
-        var response = await http.get(Uri.parse(
-            '$_site/products?filter[reference]=$_ref&display=full&output_format=JSON&$_key'));
-        var data = jsonDecode(utf8.decode(response.bodyBytes));
+      } else {
+        if (_url != null && _ref == null) {
+          if (_url.length == 8) {
+            // print(
+            //     '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key');
+            var response = await http.get(Uri.parse(
+                '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+            var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-        var response2 = await http.get(Uri.parse(
-            '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key'));
-        var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
-        data['stock'] = data2['stock_availables'][0];
-        // print(data);
-        if (data != null) {
-          connectionStatus = true;
-          //  print("connected $connectionStatus");
-        }
+            var response2 = await http.get(Uri.parse(
+                '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+            var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+            data['stock'] = data2['stock_availables'][0];
+            if (data != null) {
+              connectionStatus = true;
+            }
 
-        if (!_exicuted) {
-          if (data['products'][0]['active'].toString() == '1') {
-            _switchValue = true;
+            if (!_exicuted) {
+              if (data['products'][0]['active'].toString() == '1') {
+                _switchValue = true;
+              }
+            }
+
+            return data;
+          }
+          if (_url.length == 13) {
+            var response = await http.get(Uri.parse(
+                '$_site/products?filter[reference]=$_url&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+            var data = jsonDecode(utf8.decode(response.bodyBytes));
+            if (data.isEmpty) {
+              var response = await http.get(Uri.parse(
+                  '$_site/products?filter[reference]=${_url.substring(0, _url.length - 1)}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+              var data = jsonDecode(utf8.decode(response.bodyBytes));
+              var response2 = await http.get(Uri.parse(
+                  '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+              var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+              data['stock'] = data2['stock_availables'][0];
+              if (data != null) {
+                connectionStatus = true;
+              }
+
+              if (!_exicuted) {
+                if (data['products'][0]['active'].toString() == '1') {
+                  _switchValue = true;
+                }
+              }
+
+              return data;
+            }
+            var response2 = await http.get(Uri.parse(
+                '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+            var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+            data['stock'] = data2['stock_availables'][0];
+
+            if (data != null) {
+              connectionStatus = true;
+              //  print("connected $connectionStatus");
+            }
+
+            if (!_exicuted) {
+              if (data['products'][0]['active'].toString() == '1') {
+                _switchValue = true;
+              }
+            }
+
+            return data;
           }
         }
+        if (_url == null && _ref != null) {
+          var response = await http.get(Uri.parse(
+              '$_site/products?filter[reference]=$_ref&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+          var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-        return data;
+          var response2 = await http.get(Uri.parse(
+              '$_site/stock_availables?filter[id_product]=${data['products'][0]['id']}&display=full&output_format=JSON&$_key&id_shop=$_shop_id'));
+          var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+          data['stock'] = data2['stock_availables'][0];
+          // print(data);
+          if (data != null) {
+            connectionStatus = true;
+            //  print("connected $connectionStatus");
+          }
+
+          if (!_exicuted) {
+            if (data['products'][0]['active'].toString() == '1') {
+              _switchValue = true;
+            }
+          }
+
+          return data;
+        }
       }
     } on SocketException catch (_) {
       connectionStatus = false;
